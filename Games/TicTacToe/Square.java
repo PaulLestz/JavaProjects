@@ -1,5 +1,6 @@
 package Games.TicTacToe;
 
+// Square
 public class Square {
     private String currentPiece = null;
     private Location location;
