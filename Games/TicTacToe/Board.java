@@ -25,9 +25,28 @@ public class Board {
         }
     }
 
+    public Square[][] getData() {
+        return board;
+    }
+
+    public HashMap<String, Integer> getRowMap() {
+        return rowMap;
+    }
+
     public void fillRowMap() {
         this.rowMap.put("A", 0);
         this.rowMap.put("B", 1);
         this.rowMap.put("C", 2);
+    }
+
+    public void printBoard() {
+        System.out.println("  1 2 3");
+        for(int i=0; i<3; i++) {
+            System.out.print(i + " ");
+            for(int j=0; j<3; j++) {
+                System.out.print(board[i][j].getPieceLabel() + " ");
+            }
+            System.out.println();
+        }
     }
 }

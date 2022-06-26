@@ -8,15 +8,15 @@ public class Square {
         this.location = new Location(row, column);
     }
 
-    public boolean addPiece(String player) {
-        if(this.isEmpty()) {
-            this.currentPiece = player;
-            return true;
-        }
-        return false;
+    public void addPiece(String player) {
+        this.currentPiece = player;
     }
 
     public boolean isEmpty() {
-        return this.currentPiece == "-";
+        return this.currentPiece.equals("-");
+    }
+
+    public String getPieceLabel() {
+        return currentPiece;
     }
 }
