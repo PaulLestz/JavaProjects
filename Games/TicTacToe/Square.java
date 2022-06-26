@@ -1,8 +1,7 @@
 package Games.TicTacToe;
 
-// Square
 public class Square {
-    private String currentPiece = null;
+    private String currentPiece = "-";
     private Location location;
 
     public Square(String row, int column) {
@@ -18,6 +17,6 @@ public class Square {
     }
 
     public boolean isEmpty() {
-        return this.currentPiece == null;
+        return this.currentPiece == "-";
     }
 }
