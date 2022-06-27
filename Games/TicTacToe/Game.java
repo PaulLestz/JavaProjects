@@ -16,6 +16,7 @@ public class Game {
     }
 
     public void run() {
+        board.printBoard();
         while(!complete) {
             this.requestMove();
             board.printBoard();
@@ -34,19 +35,41 @@ public class Game {
         // Implement parseInt errors
         int columnRequest = Integer.parseInt(move.substring(1,2));
 
-        Square selectedSquare = board.getData()[board.getRowMap().get(rowRequest)][columnRequest];
+        Square selectedSquare = board.getData()[board.getRowMap().get(rowRequest)][columnRequest - 1];
 
         if(selectedSquare.isEmpty()) {
             selectedSquare.addPiece(this.player);
             this.swapPlayer();
         }
         else {
+            System.out.println("Location occupied. Please try another.");
             requestMove();
         }
     }
 
     public boolean winOccurred() {
         return false;
+    }
+
+    public <T> boolean winOccurredAt(T location) {
+
+        /** 
+        if(location instanceof Integer) {
+            location = 
+        }
+        **/
+
+        Square[] squares = board.getSquares();
+
+        int slot = 0;
+        Square[] locSquares = new Square[3];
+
+        for(Square square: squares) {
+            if(square.getLocation().isAt(location)) {
+                locSquares[slot] = square;
+                slot++;
+            }
+        }
     }
 
     public void swapPlayer() {

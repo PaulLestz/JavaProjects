@@ -9,11 +9,11 @@ public class Location {
         this.column = column;
     }
 
-    public String getRowLabel() {
-        return this.row;
+    public <T> boolean isAt(T specification) {
+        
     }
 
-    public int getColumnLabel() {
-        return this.column;
+    public String toString() {
+        return row + Integer.toString(column);
     }
 }

@@ -17,6 +17,10 @@ public class Square {
     }
 
     public String getPieceLabel() {
-        return currentPiece;
+        return this.currentPiece;
+    }
+
+    public Location getLocation() {
+        return this.location;
     }
 }
