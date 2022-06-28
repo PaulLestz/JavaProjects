@@ -21,8 +21,10 @@ public class Game {
             this.requestMove();
             board.printBoard();
             if(this.winOccurred()) {
+                System.out.println("Player " + player + " wins!");
                 complete = true;
             }
+            this.swapPlayer();
         }
     }
 
@@ -39,7 +41,6 @@ public class Game {
 
         if(selectedSquare.isEmpty()) {
             selectedSquare.addPiece(this.player);
-            this.swapPlayer();
         }
         else {
             System.out.println("Location occupied. Please try another.");
@@ -51,7 +52,7 @@ public class Game {
 
         // combine into one using generics?
         String[] winRows = { "A", "B", "C" };
-        int[] winColumns = { 1, 2, 3 };
+        Integer[] winColumns = { new Integer(0) , new Integer(1) , new Integer(2) };
 
         for(String row: winRows) {
             if(this.winOccurredAt(row)) {
@@ -76,20 +77,12 @@ public class Game {
 
         int slot = 0;
 
-        System.out.println("made it to: " + location);
         for(int i=0; i<squares.length; i++) {
-            System.out.println(i + "complete");
             if(squares[i].getLocation().hasLoc(location)) {
                 locSquares[slot] = squares[i];
                 slot++;
             }
-            System.out.println(i + "complete after");
         }
-
-        for(Square square: locSquares) {
-            System.out.print(square.getPieceLabel());
-        }
-        System.out.println("reached" + location);
 
         // try to simplify with HOF (map, fold)
         return locSquares[0].getPieceLabel().equals(locSquares[1].getPieceLabel()) &&

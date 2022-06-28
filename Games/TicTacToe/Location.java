@@ -14,7 +14,7 @@ public class Location {
             return row.equals(location);
         }
         else if(location instanceof Integer) {
-            return new Integer(column) == location;
+            return new Integer(column).equals(location);
         }
         else {
             //throw error instead
