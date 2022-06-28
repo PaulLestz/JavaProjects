@@ -21,7 +21,7 @@ public class Game {
             this.requestMove();
             board.printBoard();
             if(this.winOccurred()) {
-                break;
+                complete = true;
             }
         }
     }
@@ -48,28 +48,53 @@ public class Game {
     }
 
     public boolean winOccurred() {
+
+        // combine into one using generics?
+        String[] winRows = { "A", "B", "C" };
+        int[] winColumns = { 1, 2, 3 };
+
+        for(String row: winRows) {
+            if(this.winOccurredAt(row)) {
+                return true;
+            }
+        }
+
+        for(int column: winColumns) {
+            if(this.winOccurredAt(column)) {
+                return true;
+            }
+        }
+
         return false;
     }
 
     public <T> boolean winOccurredAt(T location) {
 
-        /** 
-        if(location instanceof Integer) {
-            location = 
-        }
-        **/
-
         Square[] squares = board.getSquares();
 
-        int slot = 0;
         Square[] locSquares = new Square[3];
 
-        for(Square square: squares) {
-            if(square.getLocation().isAt(location)) {
-                locSquares[slot] = square;
+        int slot = 0;
+
+        System.out.println("made it to: " + location);
+        for(int i=0; i<squares.length; i++) {
+            System.out.println(i + "complete");
+            if(squares[i].getLocation().hasLoc(location)) {
+                locSquares[slot] = squares[i];
                 slot++;
             }
+            System.out.println(i + "complete after");
         }
+
+        for(Square square: locSquares) {
+            System.out.print(square.getPieceLabel());
+        }
+        System.out.println("reached" + location);
+
+        // try to simplify with HOF (map, fold)
+        return locSquares[0].getPieceLabel().equals(locSquares[1].getPieceLabel()) &&
+               locSquares[1].getPieceLabel().equals(locSquares[2].getPieceLabel()) &&
+               !locSquares[0].getPieceLabel().equals("-");
     }
 
     public void swapPlayer() {
