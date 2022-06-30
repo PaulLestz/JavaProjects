@@ -1,6 +1,8 @@
 package Games.TicTacToe;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Game {
 
@@ -83,12 +85,12 @@ public class Game {
 
         List<Square> list = Arrays.asList(locSquares);
 
-        String[] locSquaresLabels = locSquares.stream().map(square -> square.getPieceLabel());
+        Object[] locSquaresLabels = list.stream()
+                                         .map(square -> square.getPieceLabel())
+                                         .distinct()
+                                         .toArray();
 
-        // try to simplify with HOF (map, fold)
-        return locSquares[0].getPieceLabel().equals(locSquares[1].getPieceLabel()) &&
-               locSquares[1].getPieceLabel().equals(locSquares[2].getPieceLabel()) &&
-               !locSquares[0].getPieceLabel().equals("-");
+        return locSquaresLabels.length == 1 && !locSquaresLabels[0].equals("-");
     }
 
     private boolean diagonalWin() {
