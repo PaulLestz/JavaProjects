@@ -7,5 +7,4 @@ public class TicTacToe {
 
         controller.startGame();
     }
-
 }

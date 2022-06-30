@@ -1,4 +1,5 @@
 package Games.TicTacToe;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Game {
@@ -29,7 +30,7 @@ public class Game {
     }
 
     // Implement incorrect move entry format
-    public void requestMove() {
+    private void requestMove() {
         System.out.print("Player " + player + ", select your move: ");
         String move = scan.nextLine();
 
@@ -48,28 +49,24 @@ public class Game {
         }
     }
 
-    public boolean winOccurred() {
+    private boolean winOccurred() {
 
-        // combine into one using generics?
-        String[] winRows = { "A", "B", "C" };
-        Integer[] winColumns = { new Integer(0) , new Integer(1) , new Integer(2) };
+        Object[] winLocations = { "A", "B", "C", new Integer(0) , new Integer(1) , new Integer(2) };
 
-        for(String row: winRows) {
-            if(this.winOccurredAt(row)) {
+        for(Object loc: winLocations) {
+            if(this.winOccurredAt(loc)) {
                 return true;
             }
         }
 
-        for(int column: winColumns) {
-            if(this.winOccurredAt(column)) {
-                return true;
-            }
+        if(this.diagonalWin()) {
+            return true;
         }
 
         return false;
     }
 
-    public <T> boolean winOccurredAt(T location) {
+    private <T> boolean winOccurredAt(T location) {
 
         Square[] squares = board.getSquares();
 
@@ -84,13 +81,33 @@ public class Game {
             }
         }
 
+        List<Square> list = Arrays.asList(locSquares);
+
+        String[] locSquaresLabels = locSquares.stream().map(square -> square.getPieceLabel());
+
         // try to simplify with HOF (map, fold)
         return locSquares[0].getPieceLabel().equals(locSquares[1].getPieceLabel()) &&
                locSquares[1].getPieceLabel().equals(locSquares[2].getPieceLabel()) &&
                !locSquares[0].getPieceLabel().equals("-");
     }
 
-    public void swapPlayer() {
+    private boolean diagonalWin() {
+        Square[] squares = board.getSquares();
+        Square[] diagonal_one = { squares[0], squares[4], squares[8] };
+        Square[] diagonal_two = { squares[2], squares[4], squares[6] };
+        /* 
+        if() {
+            return true;
+        }
+
+        if() {
+            return true;
+        }
+        */
+        return false;
+    }
+
+    private void swapPlayer() {
         if(player.equals("X")) {
             player = "O";
         }

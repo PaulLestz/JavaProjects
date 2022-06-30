@@ -22,7 +22,4 @@ public class Location {
         }
     }
 
-    public String toString() {
-        return row + Integer.toString(column);
-    }
 }
