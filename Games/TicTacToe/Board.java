@@ -1,6 +1,9 @@
 package Games.TicTacToe;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class Board {
     
@@ -14,6 +17,11 @@ public class Board {
         this.createBoard();
     }
 
+    public Board(Square[][] builtBoard) {
+        this.fillRowMap();
+        this.board = builtBoard;
+    }
+
     public void createBoard() {
         int[] columns = {0, 1, 2};
 
@@ -24,6 +32,39 @@ public class Board {
             }
         }
     }
+
+    public Square[][] skewBoard(boolean forDiagonalOne) {
+        int rowNum = 0;
+        Square[][] skewedBoard = new Square[3][3];
+
+        for(int i = rowNum; i < board.length; i++) {
+            skewedBoard[i] = skewRow(board[i], rowNum, forDiagonalOne);
+        }
+
+        return skewedBoard;
+    }
+
+    public Square[] skewRow(Square[] row, int rowNum, boolean forDiagonalOne) {
+        List<Square> tempRow = Arrays.asList(row);
+
+        Collections.rotate(tempRow, forDiagonalOne ? -rowNum : rowNum);
+        
+        row = tempRow.toArray(row);
+        return row;
+        /* 
+        if(rowNum == 0) {
+            return row; 
+        }
+        else {
+            //skewRow(shiftRow(row), rowNum - 1);
+            Collections.rotate(row, rowNum);
+        }
+        */
+    }
+    /* 
+    public Square[] shiftRow(Square[] row) {
+
+    }*/
 
     public Square[][] getData() {
         return board;
@@ -43,6 +84,10 @@ public class Board {
             }
         }
         return squares;
+    }
+
+    public void setBoard(Square[][] newBoard) {
+        this.board = newBoard;
     }
 
     public void fillRowMap() {

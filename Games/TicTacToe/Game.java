@@ -93,9 +93,15 @@ public class Game {
     }
 
     private boolean diagonalWin() {
-        Square[] squares = board.getSquares();
-        Square[] diagonal_one = { squares[0], squares[4], squares[8] };
-        Square[] diagonal_two = { squares[2], squares[4], squares[6] };
+        Board skewedBoardLeft = new Board(board.skewBoard(true));
+
+        Board skewedBoardRight = new Board(board.skewBoard(false));
+    
+        Square[] diagonalOneSquares = skewedBoardLeft.getSquares();
+        Square[] diagonalTwoSquares = skewedBoardRight.getSquares();
+
+        return this.winOcc
+        
         /* 
         if() {
             return true;
