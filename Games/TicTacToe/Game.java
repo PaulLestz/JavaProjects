@@ -55,29 +55,24 @@ public class Game {
         Object[] winLocations = { "A", "B", "C", new Integer(0) , new Integer(1) , new Integer(2) };
 
         for(Object loc: winLocations) {
-            if(this.winOccurredAt(loc)) {
+            if(this.winOccurredAt(loc, board.getSquares())) {
                 return true;
             }
         }
 
-        if(this.diagonalWin()) {
-            return true;
-        }
-
+        //return this.diagonalWin();
         return false;
     }
 
-    private <T> boolean winOccurredAt(T location) {
-
-        Square[] squares = board.getSquares();
+    private <T> boolean winOccurredAt(T location, Square[] boardSquares) {
 
         Square[] locSquares = new Square[3];
 
         int slot = 0;
 
-        for(int i=0; i<squares.length; i++) {
-            if(squares[i].getLocation().hasLoc(location)) {
-                locSquares[slot] = squares[i];
+        for(int i=0; i<boardSquares.length; i++) {
+            if(boardSquares[i].getLocation().hasLoc(location)) {
+                locSquares[slot] = boardSquares[i];
                 slot++;
             }
         }
@@ -91,28 +86,23 @@ public class Game {
 
         return locSquaresLabels.length == 1 && !locSquaresLabels[0].equals("-");
     }
-
+    
     private boolean diagonalWin() {
         Board skewedBoardLeft = new Board(board.skewBoard(true));
 
         Board skewedBoardRight = new Board(board.skewBoard(false));
     
+        skewedBoardLeft.printBoard();
+        skewedBoardRight.printBoard();
+
         Square[] diagonalOneSquares = skewedBoardLeft.getSquares();
         Square[] diagonalTwoSquares = skewedBoardRight.getSquares();
 
-        return this.winOcc
+        return this.winOccurredAt(0, diagonalOneSquares)
+               || this.winOccurredAt(2, diagonalTwoSquares);
         
-        /* 
-        if() {
-            return true;
-        }
-
-        if() {
-            return true;
-        }
-        */
-        return false;
     }
+    
 
     private void swapPlayer() {
         if(player.equals("X")) {
