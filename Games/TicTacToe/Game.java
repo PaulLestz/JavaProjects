@@ -60,8 +60,7 @@ public class Game {
             }
         }
 
-        //return this.diagonalWin();
-        return false;
+        return this.diagonalWin();
     }
 
     private <T> boolean winOccurredAt(T location, Square[] boardSquares) {
@@ -91,9 +90,6 @@ public class Game {
         Board skewedBoardLeft = new Board(board.skewBoard(true));
 
         Board skewedBoardRight = new Board(board.skewBoard(false));
-    
-        skewedBoardLeft.printBoard();
-        skewedBoardRight.printBoard();
 
         Square[] diagonalOneSquares = skewedBoardLeft.getSquares();
         Square[] diagonalTwoSquares = skewedBoardRight.getSquares();

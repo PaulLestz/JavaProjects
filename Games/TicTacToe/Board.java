@@ -84,12 +84,8 @@ public class Board {
         List<Square> tempRow = Arrays.asList(row);
 
         Collections.rotate(tempRow, forDiagonalOne ? -rowNum : rowNum);
-        
-        Square[] skewedRow = new Square[3];
 
-        return tempRow.toArray(skewedRow);
-        //row = tempRow.toArray(row);
-        //return row;
+        return tempRow.toArray(row);
     }
 
     public Square[][] getData() {
