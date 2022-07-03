@@ -39,10 +39,11 @@ public class Game {
         // Implement parseInt errors
         int columnRequest = Integer.parseInt(move.substring(1,2));
 
-        Square selectedSquare = board.getData()[board.getRowMap().get(rowRequest)][columnRequest - 1];
+        Location selectedLocation = board.getData()[board.getRowMap().get(rowRequest)][columnRequest - 1];
+        Piece selectedPiece = selectedLocation.getPiece();
 
-        if(selectedSquare.isEmpty()) {
-            selectedSquare.addPiece(this.player);
+        if(selectedPiece.isEmpty()) {
+            selectedPiece.addPiece(this.player);
         }
         else {
             System.out.println("Location occupied. Please try another.");
@@ -55,37 +56,39 @@ public class Game {
         Object[] winLocations = { "A", "B", "C", new Integer(0) , new Integer(1) , new Integer(2) };
 
         for(Object loc: winLocations) {
-            if(this.winOccurredAt(loc, board.getSquares())) {
+            if(this.winOccurredAt(loc, board.getLocations())) {
                 return true;
             }
         }
 
-        return this.diagonalWin();
+        //return this.diagonalWin();
+        return false;
     }
 
-    private <T> boolean winOccurredAt(T location, Square[] boardSquares) {
+    private <T> boolean winOccurredAt(T location, Location[] boardLocations) {
 
-        Square[] locSquares = new Square[3];
+        Location[] matchingLocations = new Location[3];
 
         int slot = 0;
 
-        for(int i=0; i<boardSquares.length; i++) {
-            if(boardSquares[i].getLocation().hasLoc(location)) {
-                locSquares[slot] = boardSquares[i];
+        for(int i=0; i<boardLocations.length; i++) {
+            if(boardLocations[i].hasLoc(location)) {
+                matchingLocations[slot] = boardLocations[i];
                 slot++;
             }
         }
 
-        List<Square> list = Arrays.asList(locSquares);
+        List<Location> locList = Arrays.asList(matchingLocations);
 
-        Object[] locSquaresLabels = list.stream()
-                                         .map(square -> square.getPieceLabel())
+        Object[] locPieceLabels = locList.stream()
+                                         .map(loc -> loc.getPiece().getPieceLabel())
                                          .distinct()
                                          .toArray();
 
-        return locSquaresLabels.length == 1 && !locSquaresLabels[0].equals("-");
+        return locPieceLabels.length == 1 && !locPieceLabels[0].equals("-");
     }
     
+    /* 
     private boolean diagonalWin() {
         Board skewedBoardLeft = new Board(board.skewBoard(true));
 
@@ -98,7 +101,7 @@ public class Game {
                || this.winOccurredAt(2, diagonalTwoSquares);
         
     }
-    
+    */
 
     private void swapPlayer() {
         if(player.equals("X")) {

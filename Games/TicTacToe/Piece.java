@@ -1,12 +1,7 @@
 package Games.TicTacToe;
 
-public class Square {
+public class Piece {
     private String currentPiece = "-";
-    private Location location;
-
-    public Square(String row, int column) {
-        this.location = new Location(row, column);
-    }
 
     public void addPiece(String player) {
         this.currentPiece = player;
@@ -18,10 +13,6 @@ public class Square {
 
     public String getPieceLabel() {
         return this.currentPiece;
-    }
-
-    public Location getLocation() {
-        return this.location;
     }
 
 }
