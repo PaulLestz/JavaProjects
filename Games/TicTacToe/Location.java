@@ -4,11 +4,13 @@ public class Location {
     private String row;
     private int column;
     private Piece piece;
+    private String label;
 
     public Location(String row, int column) {
         this.row = row;
         this.column = column;
         this.piece = new Piece();
+        this.label = row + Integer.toString(column);
     }
 
     public <S> boolean hasLoc(S location) {
@@ -30,6 +32,10 @@ public class Location {
 
     public Piece getPiece() {
         return this.piece;
+    }
+
+    public String getLabel() {
+        return this.label;
     }
 
 }
