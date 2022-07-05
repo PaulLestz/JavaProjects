@@ -9,7 +9,7 @@ import java.util.List;
 // mark things as private
 public class Board {
     
-    private Location[][] board = new Location[3][3];
+    private Location[][] board;
 
     private String[] rows = { "A", "B", "C" };
     private HashMap<String, Integer> rowMap = new HashMap<String, Integer>();
@@ -26,6 +26,8 @@ public class Board {
 
     public void createBoard() {
         int[] columns = {0, 1, 2};
+
+        this.board = new Location[3][3];
 
         for(String row : rows) {
             for(int column: columns) {
@@ -69,8 +71,8 @@ public class Board {
 
         Location[][] sk = board.skewBoard(true);
 
-        for(int i=0; i<sk.length; i++) {
-            for(int j=0; j<sk.length; j++) {
+        for(int i=0; i<3; i++) {
+            for(int j=0; j<3; j++) {
                 System.out.print(skewedBoardLeft.getData()[i][j].getPiece().getPieceLabel() + " ");
             }
             System.out.println();
@@ -100,7 +102,7 @@ public class Board {
     }
 
     private Location[] skewRow(Location[] row, int rowNum, boolean forDiagonalOne) {
-        List<Location> rowLocs = Arrays.asList(row);
+        List<Location> rowLocs = Arrays.asList(row.clone());
 
         Object[] locPieces = rowLocs.stream().map(location -> location.getPiece()).toArray();
         //List<Piece> pieceList = Arrays.asList(locPieces);

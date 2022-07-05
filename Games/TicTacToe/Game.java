@@ -61,8 +61,8 @@ public class Game {
             }
         }
 
-        return this.diagonalWin();
-        //return false;
+        //return this.diagonalWin();
+        return false;
     }
 
     private <T> boolean winOccurredAt(T location, Location[] boardLocations) {
@@ -88,7 +88,7 @@ public class Game {
         return locPieceLabels.length == 1 && !locPieceLabels[0].equals("-");
     }
     
-    
+    /* 
     private boolean diagonalWin() {
         //Board skewedBoardLeft = new Board(board.skewBoard(true));
 
@@ -102,6 +102,7 @@ public class Game {
         Location[][] skewRight = board.skewBoard(false);
         skewedBoardRight.setBoard(skewRight);
 
+        Location[][] sk = board.skewBoard(true);
 
         skewedBoardLeft.printBoard();
         skewedBoardRight.printBoard();
@@ -113,6 +114,7 @@ public class Game {
                || this.winOccurredAt(2, diagonalTwoSquares);
         
     }
+    */
     
 
     private void swapPlayer() {
